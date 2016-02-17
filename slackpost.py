@@ -5,12 +5,12 @@ import requests
 
 def postToSlack(text):
 	payload = {
-		"channel": "#general", 
-		"username": "@fukutax on Twitter", 
+		"channel": "#channel", 
+		"username": "usename", 
 		"icon_emoji": ":innocent:",
 		"text": text
 	}
-	url = "https://hooks.slack.com/services/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"
+	url = "Webhook URL by Incoming WebHooks"
 	payloadJson = json.dumps(payload)
 	requests.post(url, data=payloadJson)
 	
@@ -23,19 +23,17 @@ class MyStreamListener(tweepy.StreamListener):
 			return False
 
 def initialize():
-	auth = tweepy.OAuthHandler("QpmoV4yKcgBGHa2CSV9qJVWCn", "cTfPA0wHa4jHhbE5iPgTJJbVlkTrF94dbii4KFiWwcabdgVhUY")
-	auth.set_access_token("456660410-lp8FVaNtFOLstNAJeP7f4C0Q0N9Je2zWunU0Ey51", "y5FiyIumf00fbQlOBrbUEi0NRE7vjnabHPaSTEWjsArkN")
+	#your consumer_key,consumer_secret,access_token,access_token_secret
+	auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+	auth.set_access_token(access_token, access_token_secret)
 	api = tweepy.API(auth_handler=auth, api_root='/1.1')
 	startStream(api.auth)
 
 def startStream(auth):
 	myStreamListener = MyStreamListener()
 	myStream = tweepy.Stream(auth = auth, listener=myStreamListener)
-	#myStream.userstream()
-	#myStream.filter(track=["#"])
-	myStream.filter(follow=['6815212'])
-	#fukutax=6815212
-	#shopon1201=456660410
+	myStream.filter(follow=['456660410'])
+	#456660410 is UserID of shopon1201
 	
 def main():
 	initialize()
